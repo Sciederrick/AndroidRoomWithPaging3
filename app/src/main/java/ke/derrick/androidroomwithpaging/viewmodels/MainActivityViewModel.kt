@@ -7,6 +7,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import ke.derrick.androidroomwithpaging.data.RandomTextDao
+import kotlinx.coroutines.flow.map
 
 class MainActivityViewModel(private val randomTextDao: RandomTextDao): ViewModel() {
     val allRandomTexts = Pager(
