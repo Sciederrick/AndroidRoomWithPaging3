@@ -12,7 +12,7 @@ class MainActivityViewModel(private val randomTextDao: RandomTextDao): ViewModel
     val allRandomTexts = Pager(
         config = PagingConfig(
             pageSize = 50,
-            enablePlaceholders = true,
+            enablePlaceholders = false,
             maxSize = 200
         )
     ) {

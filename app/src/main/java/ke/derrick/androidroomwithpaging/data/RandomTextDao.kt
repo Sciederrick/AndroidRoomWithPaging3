@@ -6,6 +6,6 @@ import androidx.room.Query
 
 @Dao
 interface RandomTextDao {
-    @get:Query("SELECT * FROM random_text ORDER BY id DESC")
+    @get:Query("SELECT * FROM random_text")
     val allRandomTexts: PagingSource<Int, RandomText>
 }

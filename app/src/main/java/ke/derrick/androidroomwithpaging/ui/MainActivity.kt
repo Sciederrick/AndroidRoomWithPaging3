@@ -7,8 +7,6 @@ import androidx.lifecycle.lifecycleScope
 import ke.derrick.androidroomwithpaging.viewmodels.MainActivityViewModel
 import ke.derrick.androidroomwithpaging.viewmodels.MainActivityViewModelFactory
 import ke.derrick.androidroomwithpaging.RandomTextApplication
-import ke.derrick.androidroomwithpaging.data.RandomTextDao
-import ke.derrick.androidroomwithpaging.data.RandomTextDatabase
 import ke.derrick.androidroomwithpaging.databinding.ActivityMainBinding
 import ke.derrick.androidroomwithpaging.ui.adapters.RandomTextListAdapter
 import kotlinx.coroutines.flow.collectLatest
@@ -26,8 +24,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         initRecyclerView()
-
-        prepopulateDatabase()
     }
 
     private fun initRecyclerView() {
@@ -43,7 +39,4 @@ class MainActivity : AppCompatActivity() {
         recyclerView.adapter = randomTextAdapter
     }
 
-    private fun prepopulateDatabase() {
-        TODO("Not yet implemented")
-    }
 }
