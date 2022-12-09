@@ -2,6 +2,9 @@ package ke.derrick.androidroomwithpaging.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.KeyEvent
+import android.view.inputmethod.EditorInfo
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import ke.derrick.androidroomwithpaging.viewmodels.MainActivityViewModel
@@ -24,6 +27,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         initRecyclerView()
+        initAddRandomTextListener()
+
     }
 
     private fun initRecyclerView() {
@@ -37,6 +42,33 @@ class MainActivity : AppCompatActivity() {
 
         }
         recyclerView.adapter = randomTextAdapter
+    }
+
+    private fun initAddRandomTextListener() {
+        binding.btnAdd.setOnClickListener {
+            addRandomText()
+        }
+        binding.inputText.setOnEditorActionListener {
+                _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                addRandomText()
+                return@setOnEditorActionListener true
+            }
+            false
+        }
+        binding.inputText.setOnKeyListener { _, keyCode, keyEvent ->
+            if (keyEvent.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
+                addRandomText()
+                return@setOnKeyListener true
+            }
+            false
+        }
+    }
+
+    private fun addRandomText() {
+        val randomText = binding.inputText.text.toString()
+        viewModel.addRandomText(randomText)
+        Toast.makeText(this, "$randomText added successfully", Toast.LENGTH_LONG).show()
     }
 
 }

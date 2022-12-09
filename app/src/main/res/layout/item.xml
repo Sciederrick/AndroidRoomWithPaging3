@@ -29,5 +29,5 @@
         android:layout_weight="1"
         android:padding="5dp"
         android:backgroundTint="@color/white"
-        app:srcCompat="@android:drawable/ic_menu_more" />
+        app:srcCompat="@drawable/ic_edit_24dp" />
 </LinearLayout>

@@ -6,8 +6,9 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
+import ke.derrick.androidroomwithpaging.data.RandomText
 import ke.derrick.androidroomwithpaging.data.RandomTextDao
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
 
 class MainActivityViewModel(private val randomTextDao: RandomTextDao): ViewModel() {
     val allRandomTexts = Pager(
@@ -20,6 +21,10 @@ class MainActivityViewModel(private val randomTextDao: RandomTextDao): ViewModel
         randomTextDao.allRandomTexts
     } .flow
         .cachedIn(viewModelScope)
+
+    fun addRandomText(title: String) = viewModelScope.launch {
+        randomTextDao.insert(RandomText(title = title))
+    }
 }
 
 class MainActivityViewModelFactory(private val randomTextDao: RandomTextDao): ViewModelProvider.Factory {
