@@ -9,7 +9,6 @@ import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.snackbar.Snackbar
 import ke.derrick.androidroomwithpaging.viewmodels.MainActivityViewModel
 import ke.derrick.androidroomwithpaging.viewmodels.MainActivityViewModelFactory
 import ke.derrick.androidroomwithpaging.RandomTextApplication
