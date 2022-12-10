@@ -25,6 +25,10 @@ class MainActivityViewModel(private val randomTextDao: RandomTextDao): ViewModel
     fun addRandomText(title: String) = viewModelScope.launch {
         randomTextDao.insert(RandomText(title = title))
     }
+
+    fun deleteRandomText(randomText: RandomText) = viewModelScope.launch {
+        randomTextDao.delete(randomText)
+    }
 }
 
 class MainActivityViewModelFactory(private val randomTextDao: RandomTextDao): ViewModelProvider.Factory {
