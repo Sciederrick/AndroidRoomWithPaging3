@@ -9,6 +9,7 @@ import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import ke.derrick.androidroomwithpaging.viewmodels.MainActivityViewModel
 import ke.derrick.androidroomwithpaging.viewmodels.MainActivityViewModelFactory
 import ke.derrick.androidroomwithpaging.RandomTextApplication
@@ -84,10 +85,15 @@ class MainActivity : AppCompatActivity(), RandomTextListAdapter.OnListSelectedLi
         val randomText = binding.inputText.text.toString()
         viewModel.addRandomText(randomText)
         Toast.makeText(this, "$randomText added successfully", Toast.LENGTH_LONG).show()
+        binding.inputText.setText("")
     }
 
     private fun editRandomText() {
-        viewModel.editRandomText(updateId!!, binding.inputText.text.toString())
+        val randomText = binding.inputText.text.toString()
+        viewModel.editRandomText(updateId!!, randomText)
+        Toast.makeText(this, "$randomText edited successfully", Toast.LENGTH_LONG).show()
+        binding.inputText.setText("")
+        updateId = null
     }
 
     private val itemTouchHelper = ItemTouchHelper(object: ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
