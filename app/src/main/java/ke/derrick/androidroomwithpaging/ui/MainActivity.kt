@@ -2,18 +2,13 @@ package ke.derrick.androidroomwithpaging.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.Editable
-import android.util.Log
 import android.view.KeyEvent
-import android.view.View
 import android.view.inputmethod.EditorInfo
-import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import ke.derrick.androidroomwithpaging.R
 import ke.derrick.androidroomwithpaging.viewmodels.MainActivityViewModel
 import ke.derrick.androidroomwithpaging.viewmodels.MainActivityViewModelFactory
 import ke.derrick.androidroomwithpaging.RandomTextApplication
@@ -43,7 +38,6 @@ class MainActivity : AppCompatActivity(), RandomTextListAdapter.OnListSelectedLi
     }
 
     override fun onListSelected(randomText: RandomText) {
-        Log.d("MainActivity", "on list selected: $randomText")
         binding.inputText.setText(randomText.title)
         updateId = randomText.id
     }

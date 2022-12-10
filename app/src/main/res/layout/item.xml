@@ -29,6 +29,6 @@
         android:layout_gravity="center"
         android:layout_weight="1"
         android:padding="5dp"
-        android:backgroundTint="@color/white"
+        android:backgroundTint="@android:color/transparent"
         app:srcCompat="@drawable/ic_edit_24dp" />
 </LinearLayout>

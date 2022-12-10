@@ -2,11 +2,9 @@ package ke.derrick.androidroomwithpaging.ui.adapters
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.paging.PagingDataAdapter
@@ -30,7 +28,6 @@ class RandomTextListAdapter(private val context: Context):
 
         init {
             btnEdit.setOnClickListener {
-                Log.d("RandomTextListAdapter", "edit button clicked: $randomText")
                 randomText?.let { it1 -> onListSelectedListener?.onListSelected(it1) }
             }
         }
