@@ -5,6 +5,7 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Update
 
 @Dao
 interface RandomTextDao {
@@ -16,6 +17,9 @@ interface RandomTextDao {
 
     @Insert
     suspend fun insertMany(vararg randomText: RandomText)
+
+    @Update
+    suspend fun update(randomText: RandomText)
 
     @Delete
     suspend fun delete(randomText: RandomText)

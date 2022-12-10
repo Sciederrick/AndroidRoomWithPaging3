@@ -2,27 +2,34 @@ package ke.derrick.androidroomwithpaging.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.util.Log
 import android.view.KeyEvent
+import android.view.View
 import android.view.inputmethod.EditorInfo
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import ke.derrick.androidroomwithpaging.R
 import ke.derrick.androidroomwithpaging.viewmodels.MainActivityViewModel
 import ke.derrick.androidroomwithpaging.viewmodels.MainActivityViewModelFactory
 import ke.derrick.androidroomwithpaging.RandomTextApplication
+import ke.derrick.androidroomwithpaging.data.RandomText
 import ke.derrick.androidroomwithpaging.databinding.ActivityMainBinding
 import ke.derrick.androidroomwithpaging.ui.adapters.RandomTextListAdapter
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), RandomTextListAdapter.OnListSelectedListener {
     private lateinit var binding: ActivityMainBinding
     private val viewModel: MainActivityViewModel by viewModels {
         MainActivityViewModelFactory(
             (application as RandomTextApplication).database.randomTextDao())}
     private lateinit var recyclerView: RecyclerView
+    private var updateId: Long? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,13 +37,20 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         initRecyclerView()
-        initAddRandomTextListener()
+        initSubmitRandomTextListener()
         itemTouchHelper.attachToRecyclerView(recyclerView)
 
     }
 
+    override fun onListSelected(randomText: RandomText) {
+        Log.d("MainActivity", "on list selected: $randomText")
+        binding.inputText.setText(randomText.title)
+        updateId = randomText.id
+    }
+
     private fun initRecyclerView() {
         val randomTextAdapter = RandomTextListAdapter(this)
+        randomTextAdapter.setOnSelectedListener(this)
         recyclerView = binding.recyclerView
 
         lifecycleScope.launch {
@@ -48,9 +62,12 @@ class MainActivity : AppCompatActivity() {
         recyclerView.adapter = randomTextAdapter
     }
 
-    private fun initAddRandomTextListener() {
-        binding.btnAdd.setOnClickListener {
-            addRandomText()
+    private fun initSubmitRandomTextListener() {
+        binding.btnSubmit.setOnClickListener {
+            when (updateId) {
+                null -> addRandomText()
+                else -> editRandomText()
+            }
         }
         binding.inputText.setOnEditorActionListener {
                 _, actionId, _ ->
@@ -73,6 +90,10 @@ class MainActivity : AppCompatActivity() {
         val randomText = binding.inputText.text.toString()
         viewModel.addRandomText(randomText)
         Toast.makeText(this, "$randomText added successfully", Toast.LENGTH_LONG).show()
+    }
+
+    private fun editRandomText() {
+        viewModel.editRandomText(updateId!!, binding.inputText.text.toString())
     }
 
     private val itemTouchHelper = ItemTouchHelper(object: ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
